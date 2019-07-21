@@ -3,7 +3,7 @@
 # Smallest base image
 FROM arm32v7/alpine:latest
 
-LABEL maintainer="Kyle Manna <kyle@kylemanna.com>"
+LABEL maintainer="Kintesh <hello@kinte.sh>"
 
 RUN echo "http://dl-4.alpinelinux.org/alpine/edge/community/" >> /etc/apk/repositories && \
     echo "http://dl-4.alpinelinux.org/alpine/edge/testing/" >> /etc/apk/repositories && \
