@@ -1,8 +1,8 @@
 # OpenVPN for Docker
 
-Fork of [kylemanna/docker-openvpn](https://github.com/kylemanna/docker-openvpn)
-
 OpenVPN server in a Docker container complete with an EasyRSA PKI CA.
+
+Fork of kylemanna/docker-openvpn This Forrk provides three tags: x86_64, arm64v8 (aarch64) and arm32v7 (armhf). Use appropriate tag for your system.
 
 ## Quick Start
 
@@ -17,21 +17,21 @@ OpenVPN server in a Docker container complete with an EasyRSA PKI CA.
   and certificates.  The container will prompt for a passphrase to protect the
   private key used by the newly generated certificate authority.
 
-        docker volume create --name $OVPN_DATA
-        docker run -v $OVPN_DATA:/etc/openvpn --log-driver=none --rm kintesh/openvpn ovpn_genconfig -u udp://VPN.SERVERNAME.COM
-        docker run -v $OVPN_DATA:/etc/openvpn --log-driver=none --rm -it kintesh/openvpn ovpn_initpki
+      docker volume create --name $OVPN_DATA
+      docker run -v $OVPN_DATA:/etc/openvpn --log-driver=none --rm kintesh/openvpn:arm32v7 ovpn_genconfig -u udp://VPN.SERVERNAME.COM
+      docker run -v $OVPN_DATA:/etc/openvpn --log-driver=none --rm -it kintesh/openvpn:arm32v7 ovpn_initpki
 
 * Start OpenVPN server process
 
-        docker run -v $OVPN_DATA:/etc/openvpn -d -p 1194:1194/udp --cap-add=NET_ADMIN kintesh/openvpn
+      docker run -v $OVPN_DATA:/etc/openvpn -d -p 1194:1194/udp --cap-add=NET_ADMIN kintesh/openvpn:arm32v7
 
 * Generate a client certificate without a passphrase
 
-        docker run -v $OVPN_DATA:/etc/openvpn --log-driver=none --rm -it kintesh/openvpn easyrsa build-client-full CLIENTNAME nopass
+      docker run -v $OVPN_DATA:/etc/openvpn --log-driver=none --rm -it kintesh/openvpn:arm32v7 easyrsa build-client-full CLIENTNAME nopass
 
 * Retrieve the client configuration with embedded certificates
 
-        docker run -v $OVPN_DATA:/etc/openvpn --log-driver=none --rm kintesh/openvpn ovpn_getclient CLIENTNAME > CLIENTNAME.ovpn
+      docker run -v $OVPN_DATA:/etc/openvpn --log-driver=none --rm kintesh/openvpn:arm32v7 ovpn_getclient CLIENTNAME > CLIENTNAME.ovpn
 
 ## Next Steps
 
