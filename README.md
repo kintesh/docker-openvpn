@@ -18,8 +18,8 @@ Fork of kylemanna/docker-openvpn This Forrk provides three tags: x86_64, arm64v8
   private key used by the newly generated certificate authority.
 
       docker volume create --name $OVPN_DATA
-      docker run -v $OVPN_DATA:/etc/openvpn --log-driver=none --rm kintesh/openvpn:arm32v7 ovpn_genconfig -u udp://VPN.SERVERNAME.COM
-      docker run -v $OVPN_DATA:/etc/openvpn --log-driver=none --rm -it kintesh/openvpn:arm32v7 ovpn_initpki
+      docker run -v $OVPN_DATA:/etc/openvpn --rm kintesh/openvpn:arm32v7 ovpn_genconfig -u udp://VPN.SERVERNAME.COM
+      docker run -v $OVPN_DATA:/etc/openvpn --rm -it kintesh/openvpn:arm32v7 ovpn_initpki
 
 * Start OpenVPN server process
 
@@ -27,11 +27,11 @@ Fork of kylemanna/docker-openvpn This Forrk provides three tags: x86_64, arm64v8
 
 * Generate a client certificate without a passphrase
 
-      docker run -v $OVPN_DATA:/etc/openvpn --log-driver=none --rm -it kintesh/openvpn:arm32v7 easyrsa build-client-full CLIENTNAME nopass
+      docker run -v $OVPN_DATA:/etc/openvpn --rm -it kintesh/openvpn:arm32v7 easyrsa build-client-full CLIENTNAME nopass
 
 * Retrieve the client configuration with embedded certificates
 
-      docker run -v $OVPN_DATA:/etc/openvpn --log-driver=none --rm kintesh/openvpn:arm32v7 ovpn_getclient CLIENTNAME > CLIENTNAME.ovpn
+      docker run -v $OVPN_DATA:/etc/openvpn --rm kintesh/openvpn:arm32v7 ovpn_getclient CLIENTNAME > CLIENTNAME.ovpn
 
 ## Next Steps
 
@@ -56,7 +56,7 @@ If you prefer to use `docker-compose` please refer to the [documentation](docs/d
 
 * Create an environment variable with the name DEBUG and value of 1 to enable debug output (using "docker -e").
 
-        docker run -v $OVPN_DATA:/etc/openvpn -p 1194:1194/udp --privileged -e DEBUG=1 kintesh/openvpn
+        docker run -v $OVPN_DATA:/etc/openvpn -p 1194:1194/udp --cap-add=NET_ADMIN -e DEBUG=1 kintesh/openvpn
 
 * Test using a client that has openvpn installed correctly
 
